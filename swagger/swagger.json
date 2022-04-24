@@ -1,0 +1,949 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Anest - Knowledge Connection"
+  },
+  "host": "localhost:8080",
+  "basePath": "/api",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "tags": [],
+  "paths": {
+    "/register": {
+      "post": {
+        "operationId": "register",
+        "tags": [
+          "Authenication"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Register Response",
+            "schema": {
+              "$ref": "#/definitions/MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "operationId": "auth",
+        "tags": [
+          "Authenication"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AuthBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Auth Response",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/card": {
+      "post": {
+        "operationId": "createCard",
+        "tags": [
+          "Card"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "'type' defined at client",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CardBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create Card Response",
+            "schema": {
+              "$ref": "#/definitions/CardItem"
+            }
+          }
+        }
+      }
+    },
+    "/user/card/{id}": {
+      "get": {
+        "operationId": "getCardById",
+        "tags": [
+          "Card"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Card Item Response",
+            "schema": {
+              "$ref": "#/definitions/CardItem"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateCard",
+        "tags": [
+          "Card"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "'type' defined at client",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CardBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update Card Response",
+            "schema": {
+              "$ref": "#/definitions/MessageResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteCard",
+        "tags": [
+          "Card"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete Card Response",
+            "schema": {
+              "$ref": "#/definitions/MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/public/skill": {
+      "get": {
+        "operationId": "getAllSkill",
+        "tags": [
+          "Skill"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List Skill Response",
+            "schema": {
+              "$ref": "#/definitions/ListSkill"
+            }
+          }
+        }
+      }
+    },
+    "/public/home/anest-mentor": {
+      "get": {
+        "operationId": "getAllAnestMentor",
+        "tags": [
+          "Home"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List Anest Mentor Response",
+            "schema": {
+              "$ref": "#/definitions/ListUser"
+            }
+          }
+        }
+      }
+    },
+    "/public/home/other-mentor": {
+      "get": {
+        "operationId": "getAllOtherMentor",
+        "tags": [
+          "Home"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List Other Mentor Response",
+            "schema": {
+              "$ref": "#/definitions/ListUser"
+            }
+          }
+        }
+      }
+    },
+    "/public/home/request": {
+      "get": {
+        "operationId": "getAllRequest",
+        "tags": [
+          "Home"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List Request Response",
+            "schema": {
+              "$ref": "#/definitions/ListRequest"
+            }
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "operationId": "getProfile",
+        "tags": [
+          "Profile"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile Response",
+            "schema": {
+              "$ref": "#/definitions/ProfileResponse"
+            }
+          }
+        }
+      },
+    },
+    "/public/user/resume/{userId}": {
+      "get": {
+        "operationId": "getProfileResume",
+        "tags": [
+          "Profile CV"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile Resume Response",
+            "schema": {
+              "$ref": "#/definitions/ProfileResumeResponse"
+            }
+          }
+        }
+      },
+    },
+    "/user/pay-in": {
+      "get": {
+        "operationId": "getPayIn",
+        "tags": [
+          "Pay In"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pay In Response",
+            "schema": {
+              "$ref": "#/definitions/PayInResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPayIn",
+        "tags": [
+          "Pay In"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Method ID: 1,2,3,4 (connect with server)",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PayInBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create Pay In Response",
+            "schema": {
+              "$ref": "#/definitions/MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/withdraw": {
+      "get": {
+        "operationId": "getWithdrawInfo",
+        "tags": [
+          "Withdraw"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Withdraw Info Response",
+            "schema": {
+              "$ref": "#/definitions/WithdrawInfoResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "withdraw",
+        "tags": [
+          "Withdraw"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer 'token'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WithdrawBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create Withdrawal Response",
+            "schema": {
+              "$ref": "#/definitions/MessageResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "MessageResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "RegisterBody": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "dateOfBirth": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "boolean"
+        },
+        "phone": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthBody": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "CardBody": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "bank": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        }
+      }
+    },
+    "ListCard": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CardItem"
+          }
+        }
+      }
+    },
+    "CardItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "bank": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        }
+      }
+    },
+    "ListSkill":  {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SkillItem"
+          }
+        }
+      }
+    },
+    "SkillItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ListUser": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserItem"
+          }
+        }
+      }
+    },
+    "UserItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "boolean"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "job": {
+          "type": "string"
+        },
+        "listSkill": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SkillItem"
+          }
+        },
+        "onlineStatus": {
+          "type": "string"
+        },
+        "anestMentor": {
+          "type": "boolean"
+        },
+        "rating": {
+          "type": "number",
+          "format": "float"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "totalRequestFinish": {
+          "type": "integer"
+        }
+      }
+    },
+    "ListRequest": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RequestItem"
+          }
+        }
+      }
+    },
+    "RequestItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "deadline": {
+          "type": "string"
+        },
+        "time": {
+          "type": "integer"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "listSkill": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SkillItem"
+          }
+        }
+      }
+    },
+    "PayInResponse": {
+      "type": "object",
+      "properties": {
+        "totalBudgetCurrent": {
+          "type": "integer"
+        },
+        "totalBudgetIn": {
+          "type": "integer"
+        },
+        "paymentResponses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "methodName": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "PayInBody": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "methodId": {
+          "type": "integer"
+        },
+        "amount": {
+          "type": "integer"
+        }
+      }
+    },
+    "ProfileResponse": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "totalBudgetCurrent": {
+          "type": "integer"
+        },
+        "totalBudgetIn": {
+          "type": "integer"
+        },
+        "totalRequestCreate": {
+          "type": "integer"
+        },
+        "totalHoursHiredOthers": {
+          "type": "integer"
+        },
+        "totalHiredPeople": {
+          "type": "integer"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "dateOfBirth": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "boolean"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "mentor": {
+          "type": "boolean"
+        },
+        "totalBankAccount": {
+          "type": "integer"
+        },
+        "totalEWallet": {
+          "type": "integer"
+        },
+        "totalMoneyCurrent": {
+          "type": "integer"
+        },
+        "dailyIncome": {
+          "type": "integer"
+        },
+        "weeklyIncome": {
+          "type": "integer"
+        },
+        "monthlyIncome": {
+          "type": "integer"
+        },
+        "totalRequestReceive": {
+          "type": "integer"
+        },
+        "totalRequestDeny": {
+          "type": "integer"
+        },
+        "totalHoursBeHired": {
+          "type": "integer"
+        },
+        "denyRate": {
+          "type": "string"
+        },
+        "completeRate": {
+          "type": "string"
+        },
+        "averageRating": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "ProfileResumeResponse": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string"
+        },
+        "averageRating": {
+          "type": "number",
+          "format": "float"
+        },
+        "totalRating": {
+          "type": "integer"
+        },
+        "totalRating1": {
+          "type": "integer"
+        },
+        "totalRating2": {
+          "type": "integer"
+        },
+        "totalRating3": {
+          "type": "integer"
+        },
+        "totalRating4": {
+          "type": "integer"
+        },
+        "totalRating5": {
+          "type": "integer"
+        },
+        "totalRequestReceive": {
+          "type": "integer"
+        },
+        "totalHoursBeHired": {
+          "type": "integer"
+        },
+        "completeRate": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "skillDescription": {
+          "type": "string"
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "service": {
+          "type": "string"
+        },
+        "achievement": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fullName": {
+                "type": "string"
+              },
+              "avatar": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "timeRequest": {
+                "type": "integer"
+              },
+              "rating": {
+                "type": "number",
+                "format": "float"
+              },
+              "createdDate": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "WithdrawBody": {
+      "type": "object",
+      "properties": {
+        "cardId": {
+          "type": "integer"
+        },
+        "amount": {
+          "type": "integer"
+        }
+      }
+    },
+    "WithdrawInfoResponse": {
+      "type": "object",
+      "properties": {
+        "totalBudgetCurrent": {
+          "type": "integer"
+        },
+        "totalBudgetIn": {
+          "type": "integer"
+        },
+        "totalMoneyCurrent": {
+          "type": "integer"
+        },
+        "bankCards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CardItem"
+          }
+        },
+        "eWallets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CardItem"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
